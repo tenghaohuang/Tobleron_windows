@@ -22,7 +22,7 @@ function varargout = Tobleron_GUI(varargin)
 
 % Edit the above text to modify the response to help Tobleron_GUI
 
-% Last Modified by GUIDE v2.5 22-Dec-2020 19:46:41
+% Last Modified by GUIDE v2.5 30-Jun-2020 14:45:07
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -496,10 +496,10 @@ function SeperateView(I)
 
     set(0,'units','pixels'); %Sets the units of your root object (screen) to pixels
     Pix_SS = get(0,'screensize'); %Obtains this pixel information
-    width=Pix_SS(3)-252;
-    height=Pix_SS(4)-70;
+    width=Pix_SS(3)-302;
+    height=Pix_SS(4);
     x0=0;
-    y0=40;
+    y0=0;
     set(hFig,'position',[x0,y0,width,height])
 
     global ret
@@ -725,7 +725,7 @@ updatePM(leg+1);
 % ------- Will directly open up drawing window based on the decomposed
 % --------frames
 % -Parameter: N/A
-% -Output: A drawing contains a image listening to keypress function, mouse
+% -Output: A drawing window contains a image listening to keypress function, mouse
 % -------- clicking function
 function initial_but_Callback(hObject, eventdata, handles)
 global frames_path;
@@ -917,10 +917,10 @@ function frame_numbox_Callback(hObject, eventdata, handles)
     [data,pointer] = getData();
     frames_num = getFramesNum();
     global frames_path;
-    if(frames_num==1)
-        msgbox("No previous frame");
-        return
-    end
+%     if(frames_num==1)
+%         msgbox("No previous frame");
+%         return
+%     end
        
     handle_fig = figure(1);
     close(handle_fig);
@@ -931,6 +931,7 @@ function frame_numbox_Callback(hObject, eventdata, handles)
     updatePM(leg_counter);
     filename = strcat('frame',num2str(frames_num),'.jpg');
     I=imread(fullfile(frames_path,filename));
+    SeperateView(I);
     updatePM(0);
 
     [legnum,begin] = getNums(frames_num);
@@ -1407,12 +1408,3 @@ data = get(uitable_handle,'Data');
 
 save(datestr(now),'data');
 cd(currentFolder);
-
-
-% --- Executes on scroll wheel click while the figure is in focus.
-	
-% hObject    handle to figure1 (see GCBO)
-% eventdata  structure with the following fields (see MATLAB.UI.FIGURE)
-%	VerticalScrollCount: signed integer indicating direction and number of clicks
-%	VerticalScrollAmount: number of lines scrolled for each click
-% handles    structure with handles and user data (see GUIDATA)
