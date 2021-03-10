@@ -22,7 +22,7 @@ function varargout = Tobleron_GUI(varargin)
 
 % Edit the above text to modify the response to help Tobleron_GUI
 
-% Last Modified by GUIDE v2.5 30-Jun-2020 14:45:07
+% Last Modified by GUIDE v2.5 10-Mar-2021 00:10:14
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -472,8 +472,16 @@ function [pts]=drawData(startover)
     
 
 function SeperateView(I)
+    global a;
+    global b;
+    global c;
+    global d;
+    global isWindowSpecified;
     global api;
     global r;
+
+    %lastF = findall(0,'tag','Figure 1');
+    %display(lastF);
     h = findall(0,'tag','MagBox');
     mag_num = str2num(get(h,'string'));
     hFig = figure('Toolbar','none',...
@@ -495,13 +503,22 @@ function SeperateView(I)
      set(hMagBox,'Position', [0, 0, boxPosition(3), boxPosition(4)])
 
     set(0,'units','pixels'); %Sets the units of your root object (screen) to pixels
-    Pix_SS = get(0,'screensize'); %Obtains this pixel information
-    width=Pix_SS(3)-302;
-    height=Pix_SS(4);
-    x0=0;
-    y0=0;
-    set(hFig,'position',[x0,y0,width,height])
 
+    h1 = findall(0,'tag','edit10');
+    width = str2num(get(h1,'string'));
+    h2 = findall(0,'tag','edit11');
+    height = str2num(get(h2,'string')); 
+    
+    x0=300;
+    y0=300;
+    %if(isWindowSpecified==1)
+        %x0 = a;
+       % y0 = b;
+      %  width = c;
+     %   height = d;
+    %end
+    set(hFig,'position',[x0,y0,width,height]);
+    %set(hIm,'position',[x0,y0,width,height]);
     global ret
     global overview;
     f1 =  findall(0,'tag','figure1');
@@ -1408,3 +1425,82 @@ data = get(uitable_handle,'Data');
 
 save(datestr(now),'data');
 cd(currentFolder);
+
+
+% --- Executes on button press in pushbutton21.
+function pushbutton21_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton21 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global a;
+global b;
+global c;
+global d;
+global isWindowSpecified;
+figure(1);
+rect = getrect;
+a = rect(1);
+b = rect(2);
+c = rect(3);
+d = rect(4);
+isWindowSpecified = 1
+
+
+% --- Executes during object creation, after setting all properties.
+function pushbutton21_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pushbutton21 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+isWindowSpecified = 0
+
+
+
+function edit10_Callback(hObject, eventdata, handles)
+% hObject    handle to edit10 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit10 as text
+%        str2double(get(hObject,'String')) returns contents of edit10 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit10_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit10 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+    Pix_SS = get(0,'screensize'); %Obtains this pixel information
+    width=Pix_SS(3)-302;
+    height=Pix_SS(4);
+    h1 = findall(0,'tag','edit10');
+    set(h1,'String',num2str(width));
+    h2 = findall(0,'tag','edit11');
+    set(h2,'String',num2str(height));
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit11_Callback(hObject, eventdata, handles)
+% hObject    handle to edit11 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit11 as text
+%        str2double(get(hObject,'String')) returns contents of edit11 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit11_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit11 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
