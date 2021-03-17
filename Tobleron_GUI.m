@@ -22,7 +22,7 @@ function varargout = Tobleron_GUI(varargin)
 
 % Edit the above text to modify the response to help Tobleron_GUI
 
-% Last Modified by GUIDE v2.5 10-Mar-2021 00:10:14
+% Last Modified by GUIDE v2.5 17-Mar-2021 15:09:22
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -508,9 +508,14 @@ function SeperateView(I)
     width = str2num(get(h1,'string'));
     h2 = findall(0,'tag','edit11');
     height = str2num(get(h2,'string')); 
+ 
+    h3 = findall(0,'tag','pos_a');
+    x0 = str2num(get(h3,'string'));
+    h4 = findall(0,'tag','pos_b');
+    y0 = str2num(get(h4,'string')); 
     
-    x0=300;
-    y0=300;
+    %x0=300;
+    %y0=300;
     %if(isWindowSpecified==1)
         %x0 = a;
        % y0 = b;
@@ -1065,7 +1070,7 @@ function next_but_Callback(hObject, eventdata, handles)
     try
         [legnum,begin] = getNums(frames_num);
         if(begin ==-1)
-            return;
+            return 
         end
         updatePM(legnum);
     catch
@@ -1496,6 +1501,52 @@ function edit11_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 function edit11_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to edit11 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function pos_a_Callback(hObject, eventdata, handles)
+% hObject    handle to pos_a (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of pos_a as text
+%        str2double(get(hObject,'String')) returns contents of pos_a as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function pos_a_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pos_a (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function pos_b_Callback(hObject, eventdata, handles)
+% hObject    handle to pos_b (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of pos_b as text
+%        str2double(get(hObject,'String')) returns contents of pos_b as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function pos_b_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pos_b (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
